@@ -40,6 +40,8 @@ set(CMAKE_CXX_FLAGS "-fcoverage-mapping -fprofile-instr-generate")
 #Sources
 set(
         LIBRARY_SOURCES
+        src/opt/CommandOption.h
+        src/detail/TypeSupport.h
 )
 
 #Lib Target
