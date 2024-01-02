@@ -30,8 +30,8 @@ namespace helper::opt {
         using OperationType = std::conditional_t<helper::detail::is_container_v<ValueType>, llvm::cl::list<typename helper::detail::container_value_t<ValueType>>, llvm::cl::opt<ValueType>>;
 
         ///
-        /// \brief Constructor of CommandOption class
-        /// \param cmd command character
+        /// \brief Constructor of CommandOption class.
+        /// \param cmd command character.
         /// \details
         ///
         explicit CommandOption(llvm::StringRef cmd) : _option(std::make_shared<OperationType>(cmd, llvm::cl::desc(""), llvm::cl::value_desc(""), llvm::cl::Optional, llvm::cl::ValueOptional, llvm::cl::DefaultOption, llvm::cl::NormalFormatting)) {}
@@ -57,8 +57,8 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Set command description
-        /// \param desc Description string of the command
+        /// \brief Set command description.
+        /// \param desc Description string of the command.
         /// \return this
         ///
         [[maybe_unused]] CommandOption<ValueType> &setDescription(llvm::StringRef desc) {
@@ -67,8 +67,8 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Set value description
-        /// \param valueDesc Description string of the value
+        /// \brief Set value description.
+        /// \param valueDesc Description string of the value.
         /// \return this
         ///
         [[maybe_unused]] CommandOption<ValueType> &setValueDescription(llvm::StringRef valueDesc) {
@@ -77,7 +77,7 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Controlling the number of occurrences required and allowed
+        /// \brief Controlling the number of occurrences required and allowed.
         /// \param occurrence One of the following values: Optional, ZeroOrMore, Required, OneOrMore
         /// \return this
         /// \see <a href="https://llvm.org/docs/CommandLine.html#controlling-the-number-of-occurrences-required-and-allowed">LLVM CommandLine Library Manual</a>
@@ -101,7 +101,7 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Controlling whether or not a value must be specified
+        /// \brief Controlling whether or not a value must be specified.
         /// \param isRequired
         /// \return  this
         /// \see <a href="https://llvm.org/docs/CommandLine.html#controlling-whether-or-not-a-value-must-be-specified">LLVM CommandLine Library Manual</a>
@@ -114,7 +114,7 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Miscellaneous option modifiers
+        /// \brief Miscellaneous option modifiers.
         /// \param isCommaSeparated
         /// \return this
         /// \see <a href="https://llvm.org/docs/CommandLine.html#miscellaneous-option-modifiers">LLVM CommandLine Library Manual</a>
@@ -127,7 +127,7 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Set Positional Arguments
+        /// \brief Set Positional Arguments.
         /// \param isPositional
         /// \return this
         /// \see <a href="https://llvm.org/docs/CommandLine.html#positional-options">LLVM CommandLine Library Manual</a>
@@ -140,8 +140,8 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Get command line input values
-        /// \return list of input values
+        /// \brief Get command line input values.
+        /// \return list of input values.
         ///
         template<typename U = ValueType, typename std::enable_if_t<helper::detail::is_container_v<U>, bool> = true>
         ValueType get() {
@@ -149,8 +149,8 @@ namespace helper::opt {
         }
 
         ///
-        /// \brief Get command line input values
-        /// \return value
+        /// \brief Get command line input values.
+        /// \return value.
         ///
         template<typename U = ValueType, typename std::enable_if_t<!(helper::detail::is_container_v<U>), bool> = true>
         ValueType get() {
