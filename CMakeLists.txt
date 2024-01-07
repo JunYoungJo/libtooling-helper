@@ -43,7 +43,15 @@ set(
         src/opt/CommandOption.h
         src/opt/CommandLineHelper.cpp
         src/opt/CommandLineHelper.h
-        src/detail/TypeSupport.h
+        src/type/TypeSupport.h
+        src/type/TypeDefine.h
+        src/detail/VisitorWrapper.h
+        src/detail/ConsumerWrapper.h
+        src/ToolingHelper.cpp
+        src/ToolingHelper.h
+        src/DelegateInterface.h
+        src/WorkerFactory.h
+        src/Worker.h
 )
 
 #Lib Target
