@@ -65,7 +65,7 @@ target_link_libraries(ToolingHelper ${LIBTOOLING_LIBS})
 add_executable(
         tests
         ${LIBRARY_SOURCES}
-        test/helper-commandline-tests.cpp
+        test/helper-tests.cpp
 )
 target_link_libraries(tests Catch2::Catch2WithMain ${LIBTOOLING_LIBS})
 enable_testing()
