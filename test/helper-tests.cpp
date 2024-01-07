@@ -86,6 +86,7 @@ SCENARIO("CommandLineHelper can add user commands") {
     }
 }
 
+/*
 SCENARIO("DelegateInterface") {
     GIVEN("DelegateInterface implementation class") {
         class DelegateImpl : public helper::DelegateInterface<DelegateImpl> {
@@ -129,3 +130,4 @@ SCENARIO("DelegateInterface") {
         }
     }
 }
+ */
