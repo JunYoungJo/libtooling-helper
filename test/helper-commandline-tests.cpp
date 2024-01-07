@@ -55,8 +55,9 @@ SCENARIO("CommandLineHelper can add user commands") {
     std::vector<const char *> argv;
     argv.push_back("tests");
     argv.push_back("-d=compile_commands.json");
+    auto &helper = helper::opt::CommandLineHelper::instance();
+
     GIVEN("a default CommandLineHelper instance") {
-        auto &helper = helper::opt::CommandLineHelper::instance();
         WHEN("add user commands") {
             auto result = helper.setOptionCommand<int>("u");
             result->get().setDescription("user input").setValueDescription("integer value").
