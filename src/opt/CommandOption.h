@@ -7,13 +7,14 @@
 
 #include "../detail/TypeSupport.h"
 #include <llvm/Support/CommandLine.h>
+#include <cstdint>
 #include <iostream>
 
 namespace helper::opt {
     ///
     /// \brief wrapper of llvm::cl::NumOccurrencesFlag
     ///
-    enum class Occurrence {
+    enum class Occurrence : std::uint8_t {
         Optional,
         ZeroOrMore,
         Required,

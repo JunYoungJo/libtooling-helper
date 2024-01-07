@@ -32,7 +32,7 @@ namespace helper::opt {
         ///
         static CommandLineHelper &instance();
 
-        friend void swap(CommandLineHelper &first, CommandLineHelper &second) {
+        friend void swap(CommandLineHelper &first, CommandLineHelper &second)  noexcept {
             using std::swap;
             swap(first._options, second._options);
         }
