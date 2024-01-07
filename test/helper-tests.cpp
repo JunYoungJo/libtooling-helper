@@ -3,6 +3,8 @@
 //
 
 #include "../src/opt/CommandLineHelper.h"
+#include "../src/ToolingHelper.h"
+#include "../src/WorkerFactory.h"
 #include <catch2/catch_test_macros.hpp>
 
 SCENARIO("CommandLineHelper can parse compile database file paths.") {
@@ -55,8 +57,9 @@ SCENARIO("CommandLineHelper can add user commands") {
     std::vector<const char *> argv;
     argv.push_back("tests");
     argv.push_back("-d=compile_commands.json");
+    auto &helper = helper::opt::CommandLineHelper::instance();
+
     GIVEN("a default CommandLineHelper instance") {
-        auto &helper = helper::opt::CommandLineHelper::instance();
         WHEN("add user commands") {
             auto result = helper.setOptionCommand<int>("u");
             result->get().setDescription("user input").setValueDescription("integer value").
@@ -82,3 +85,49 @@ SCENARIO("CommandLineHelper can add user commands") {
         }
     }
 }
+
+/*
+SCENARIO("DelegateInterface") {
+    GIVEN("DelegateInterface implementation class") {
+        class DelegateImpl : public helper::DelegateInterface<DelegateImpl> {
+        public:
+            DelegateImpl() = default;
+
+            bool operator()(helper::type::NamedDecl *decl) {
+                std::cout << decl->getDeclName().getAsString() << "\n";
+                return true;
+            };
+
+            bool operator()(helper::type::VarDecl *decl) {
+                return true;
+            };
+
+            bool operator()(helper::type::FunctionDecl *decl) {
+                return true;
+            }
+
+            bool operator()(helper::type::CallExpr *decl) {
+                return true;
+            }
+        };
+
+
+        std::vector<const char *> argv;
+        argv.push_back("tests");
+        argv.push_back("-d=./compile_commands.json");
+        argv.push_back("../src/opt/CommandLineHelper.cpp");
+        auto &opt = helper::opt::CommandLineHelper::instance();
+        opt.parseCommandLine(argv.size(), const_cast<char **>(argv.data()));
+        const std::vector<std::string> &files = opt.getSource();
+        auto helper = helper::ToolingHelper{opt.getDatabases(), files};
+
+        WHEN("Call run with implementation class") {
+            auto worker = helper::WorkerFactory::create<DelegateImpl>();
+            auto result = helper.run(worker);
+            THEN("Work succeed") {
+                REQUIRE(result == true);
+            }
+        }
+    }
+}
+ */

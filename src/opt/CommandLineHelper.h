@@ -6,6 +6,8 @@
 #define TOOLINGHELPER_COMMANDLINEHELPER_H
 
 #include "CommandOption.h"
+#include "../type/TypeDefine.h"
+#include <clang/Tooling/JSONCompilationDatabase.h>
 #include <any>
 #include <map>
 #include <string>
@@ -32,7 +34,7 @@ namespace helper::opt {
         ///
         static CommandLineHelper &instance();
 
-        friend void swap(CommandLineHelper &first, CommandLineHelper &second) {
+        friend void swap(CommandLineHelper &first, CommandLineHelper &second) noexcept {
             using std::swap;
             swap(first._options, second._options);
         }
@@ -73,9 +75,26 @@ namespace helper::opt {
             }
         }
 
+        helper::type::CompilationDatabase &getDatabases() {
+            if (_database == nullptr) {
+                std::string error;
+                _database = clang::tooling::JSONCompilationDatabase::loadFromFile(get<std::string>("d").value(), error, clang::tooling::JSONCommandLineSyntax::AutoDetect);
+            }
+            return *_database;
+        };
+
+        std::vector<std::string> getSource() {
+            if (_source.empty()) {
+                _source = get<std::vector<std::string>>("f").value();
+            }
+            return _source;
+        }
+
     private:
         CommandLineHelper();
 
+        std::unique_ptr<clang::tooling::JSONCompilationDatabase> _database = nullptr;
+        std::vector<std::string> _source;
         std::map<std::string, std::any> _options;
     };
 } // namespace helper::opt

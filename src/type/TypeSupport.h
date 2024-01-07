@@ -5,11 +5,13 @@
 #ifndef TOOLINGHELPER_TYPESUPPORT_H
 #define TOOLINGHELPER_TYPESUPPORT_H
 
+#include <clang/Frontend/ASTUnit.h>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
 
-namespace helper::detail {
+namespace helper::type {
     template<typename T>
     struct is_container : public std::false_type {
         using TYPE = void;
@@ -29,7 +31,7 @@ namespace helper::detail {
     template<typename T>
     inline constexpr bool is_supported = (std::is_same_v<T, int> || std::is_same_v<T, char> || std::is_same_v<T, bool> || std::is_same_v<T, std::string>);
 
-};
+} // namespace helper::type
 
 
 #endif //TOOLINGHELPER_TYPESUPPORT_H

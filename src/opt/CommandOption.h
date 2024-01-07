@@ -5,15 +5,16 @@
 #ifndef LIBTOOLING_HELPER_COMMANDOPTION_H
 #define LIBTOOLING_HELPER_COMMANDOPTION_H
 
-#include "../detail/TypeSupport.h"
+#include "../type/TypeSupport.h"
 #include <llvm/Support/CommandLine.h>
+#include <cstdint>
 #include <iostream>
 
 namespace helper::opt {
     ///
     /// \brief wrapper of llvm::cl::NumOccurrencesFlag
     ///
-    enum class Occurrence {
+    enum class Occurrence : std::uint8_t {
         Optional,
         ZeroOrMore,
         Required,
@@ -27,7 +28,7 @@ namespace helper::opt {
     template<typename ValueType>
     class CommandOption {
     public:
-        using OperationType = std::conditional_t<helper::detail::is_container_v<ValueType>, llvm::cl::list<typename helper::detail::container_value_t<ValueType>>, llvm::cl::opt<ValueType>>;
+        using OperationType = std::conditional_t<helper::type::is_container_v<ValueType>, llvm::cl::list<typename helper::type::container_value_t<ValueType>>, llvm::cl::opt<ValueType>>;
 
         ///
         /// \brief Constructor of CommandOption class.
@@ -143,7 +144,7 @@ namespace helper::opt {
         /// \brief Get command line input values.
         /// \return list of input values.
         ///
-        template<typename U = ValueType, typename std::enable_if_t<helper::detail::is_container_v<U>, bool> = true>
+        template<typename U = ValueType, typename std::enable_if_t<helper::type::is_container_v<U>, bool> = true>
         ValueType get() {
             return *_option;
         }
@@ -152,7 +153,7 @@ namespace helper::opt {
         /// \brief Get command line input values.
         /// \return value.
         ///
-        template<typename U = ValueType, typename std::enable_if_t<!(helper::detail::is_container_v<U>), bool> = true>
+        template<typename U = ValueType, typename std::enable_if_t<!(helper::type::is_container_v<U>), bool> = true>
         ValueType get() {
             return _option->getValue();
         }
