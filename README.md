@@ -12,7 +12,7 @@ libtooling is a really great tool, but it's really terribly difficult to use.
 
 Even the example files in the [official documentation](https://clang.llvm.org/docs/LibTooling.html) are not built. 
 
-If you look at the code below :
+look at the code below :
 ```c++
 int main(int argc, const char **argv) {
   CommonOptionsParser OptionsParser(argc, argv, MyToolCategory); // error
@@ -21,13 +21,13 @@ int main(int argc, const char **argv) {
   return Tool.run(newFrontendActionFactory<clang::SyntaxOnlyAction>().get());
 }
 ```
-The code in the part marked as error has remained in error since last year when I first checked it (version 18).
+The code in the part marked as error has remained in error since last year when I first checked it.
 
 The workaround I found is to use the code as below:
 ```c++
 auto OptionsParser = CommonOptionsParser::create(argc, argv, MyToolCategory);
 ```
-As you can see from the examples above, there aren't many good examples using libtooling.
+As you can see from the example above, examples using libtooling are hard to find.
 
 Moreover, if you want to use libtooling in a non-Ubuntu environment, you have to build llvm yourself, which is even more difficult and terrible. (Contents about llvm build will be added later)
 
